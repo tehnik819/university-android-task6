@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/text_view_default"
+        android:gravity="center"
+        android:textSize="@dimen/text_view_size"
+        android:text="@string/text_view_default"/>
+
+    <Button android:id="@+id/crash_me"
+        android:layout_width="@dimen/button_width"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/crash_me_text"/>
+
+    <Button android:id="@+id/view_post"
+        android:layout_width="@dimen/button_width"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/view_post_text"/>
+
+    <Button android:id="@+id/run_ui"
+        android:layout_width="@dimen/button_width"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/run_ui_text"/>
+
+    <Button android:id="@+id/handler"
+        android:layout_width="@dimen/button_width"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/handler_text"/>
+
+</LinearLayout>

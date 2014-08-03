@@ -3,6 +3,8 @@ traineeship-network
 
 Пример кода, для лекции по работе с сетью и многопоточности в android. <br/>
 
+Задание <br/>
+
 1. Реализовать экран StudentTaskActivity, показывающий список* заголовков новостей http://androidtraining.noveogroup.com/news/getAll
 
 2. Пока новости загружаются, пользователю должен быть показан ProgressDialog.

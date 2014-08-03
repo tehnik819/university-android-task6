@@ -58,9 +58,7 @@ public class HandlerActivity extends ActionBarActivity{
         new Thread() {
             @Override
             public void run() {
-                textView.setText(
-                        getString(R.string.crash_me_text)
-                );
+                textView.setText(R.string.crash_me_text);
             }
         }.start();
     }
@@ -72,9 +70,7 @@ public class HandlerActivity extends ActionBarActivity{
                 textView.post(new Runnable() {
                     @Override
                     public void run() {
-                        textView.setText(
-                                getString(R.string.view_post_text)
-                        );
+                        textView.setText(R.string.view_post_text);
                     }
                 });
             }
@@ -88,9 +84,7 @@ public class HandlerActivity extends ActionBarActivity{
                 HandlerActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        textView.setText(
-                                getString(R.string.run_ui_text)
-                        );
+                        textView.setText(R.string.run_ui_text);
                     }
                 });
             }
@@ -104,9 +98,7 @@ public class HandlerActivity extends ActionBarActivity{
                 new Handler(Looper.getMainLooper()).post(new Runnable() {
                     @Override
                     public void run() {
-                        textView.setText(
-                                getString(R.string.handler_text)
-                        );
+                        textView.setText(R.string.handler_text);
                     }
                 });
             }

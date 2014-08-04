@@ -1,4 +1,4 @@
-traineeship-network
+university-android-task6
 ===================
 
 Пример кода, для лекции по работе с сетью и многопоточности в android. <br/>

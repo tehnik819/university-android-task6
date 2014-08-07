@@ -16,6 +16,8 @@
     <string name="start_service_text">Start Service</string>
     <string name="text_service">Service</string>
     <string name="prefix_result">Result :</string>
-    <string name="loading_text">Load...</string>
+    <string name="loading_text">Load…</string>
     <string name="text_student">Student Task</string>
+    <string name="load_message">Loading news. Please wait!</string>
+    <string name="no_connetion">No internet connection. Please connect!</string>
 </resources>

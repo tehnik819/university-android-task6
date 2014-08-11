@@ -44,7 +44,10 @@ public class StudentTaskActivity extends ActionBarActivity {
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        setStringAdapter(savedInstanceState.getStringArrayList(KEY_ITEMS));
+        ArrayList<String> arrayList = savedInstanceState.getStringArrayList(KEY_ITEMS);
+        if(arrayList != null) {
+            taskResult(arrayList);
+        }
     }
 
     @Override
@@ -54,13 +57,8 @@ public class StudentTaskActivity extends ActionBarActivity {
     }
 
     public void taskResult(ArrayList<String> result) {
-        setStringAdapter(result);
-        loadNewsDialog.dismiss();
-    }
-
-    public void setStringAdapter(ArrayList<String> result) {
         items = result;
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, items);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items);
         list.setAdapter(adapter);
     }
 
@@ -78,6 +76,11 @@ public class StudentTaskActivity extends ActionBarActivity {
         private ProgressBar progressBar;
         private TextView loadState;
 
+        public LoadNewsDialog() {
+            setRetainInstance(true);
+            task.execute("http://androidtraining.noveogroup.com/news/getAll");
+        }
+
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             View view = inflater.inflate(R.layout.fragment_load_news, container, false);
@@ -89,13 +92,11 @@ public class StudentTaskActivity extends ActionBarActivity {
         @Override
         public void onActivityCreated(Bundle savedInstanceState) {
             super.onActivityCreated(savedInstanceState);
-            if(((StudentTaskActivity)getActivity()).isOnline()) {
-                task.execute("http://androidtraining.noveogroup.com/news/getAll");
-            }
-            else {
+            if(!((StudentTaskActivity)getActivity()).isOnline()) {
+                task.cancel(true);
                 progressBar.setVisibility(View.GONE);
                 loadState.setText(getText(R.string.no_connetion));
-                ((StudentTaskActivity)getActivity()).setStringAdapter(new ArrayList<String>());
+                ((StudentTaskActivity)getActivity()).taskResult(new ArrayList<String>());
             }
             if(list != null) {
                 showResult();
@@ -103,20 +104,19 @@ public class StudentTaskActivity extends ActionBarActivity {
         }
 
         @Override
-        public void onPause() {
-            super.onPause();
-            task.cancel(true);
-        }
-
-        @Override
         public void onDestroyView() {
+            if (getDialog() != null && getRetainInstance())
+                getDialog().setDismissMessage(null);
             super.onDestroyView();
             progressBar = null;
             loadState = null;
         }
 
         private void showResult() {
-            ((StudentTaskActivity)getActivity()).taskResult(list);
+            if(getActivity() != null) {
+                ((StudentTaskActivity) getActivity()).taskResult(list);
+            }
+            dismiss();
         }
 
         private AsyncTask<String, Void, ArrayList<String>> task = new AsyncTask<String, Void, ArrayList<String>>() {
@@ -128,15 +128,15 @@ public class StudentTaskActivity extends ActionBarActivity {
                     String json = read(connection.getInputStream());
                     connection.disconnect();
                     JSONArray jsonArray = new JSONArray(json);
-                    ArrayList<String> list = new ArrayList<>();
+                    ArrayList<String> list = new ArrayList<String>();
                     for(int i = 0;i < jsonArray.length(); i++) {
                         list.add(jsonArray.getJSONObject(i).getString("title"));
                     }
                     return list;
                 } catch (IOException e) {
-                    return new ArrayList<>();
+                    return new ArrayList<String>();
                 } catch (JSONException e) {
-                    return new ArrayList<>();
+                    return new ArrayList<String>();
                 }
             }
 
